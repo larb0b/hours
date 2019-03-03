@@ -30,7 +30,7 @@ function edithrs {
 	printf ":"
 	read line
 	awk "NR == $line" ${srvfile} > ${srvfile}.tmp
-	xdg-open ${srvfile}.tmp
+	${EDITOR:=xdg-open} ${srvfile}.tmp
 	sed -i "${line}c\\$(cat ${srvfile}.tmp)" ${srvfile}
 	rm ${srvfile}.tmp
 	echo "Finished editing."
