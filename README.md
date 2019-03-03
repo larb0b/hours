@@ -4,7 +4,7 @@ Simple script to log hours (service hours, work hours, etc.)
 
 ## Info
 
-By default, it creates "srvhrs" to store the hour database. You can use a different file by passing it as an argument, e.g. `./hours.sh ~/hoursfile".
+By default, it creates "srvhrs" to store the hour database. You can use a different file by passing it as an argument, e.g. `./hours.sh ~/hoursfile`.
 
 ## Commands
 
