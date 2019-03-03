@@ -54,19 +54,27 @@ while true
 do
 	printf ":"
 	read command
- 	if [ "$command" == "add" ]; then
-		addhrs
-	elif [ "$command" == "ls" ]; then
-		lshrs
-	elif [ "$command" == "rm" ]; then
-		rmhrs
-	elif [ "$command" == "edit" ]; then
-		edithrs
-	elif [ "$command" == "total" ]; then
-		total
-	elif [ "$command" == "exit" ]; then
-		exit 0
-	else
-		echo "Invalid command"
-	fi
+	case "$command" in
+		add)
+			addhrs
+			;;
+		ls)
+			lshrs
+			;;
+		rm)
+			rmhrs
+			;;
+		edit)
+			edithrs
+			;;
+		total)
+			total
+			;;
+		exit)
+			exit 0
+			;;
+		*)
+			echo "Invalid command"
+			;;
+	esac
 done
