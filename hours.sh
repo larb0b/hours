@@ -6,38 +6,38 @@ function addhrs {
 	read hours
 	echo "Description?"
 	read description
-	echo "$date - $hours - $description" >> srvhrs
+	echo "$date - $hours - $description" >> ${srvfile}
 }
 function rmhrs {
-	cat -n srvhrs
+	cat -n ${srvfile}
 	echo "Remove which line?"
 	printf ":"
 	read line
-	sed "${line}d" srvhrs > srvhrs.tmp
+	sed "${line}d" ${srvfile} > ${srvfile}.tmp
 	echo "The new service hour log will be as follows:"
-	cat -n srvhrs.tmp
+	cat -n ${srvfile}.tmp
 	echo "Does this look okay? (y/n)"
 	read resp
 	if [ "$resp" == "y" ]; then
-		mv srvhrs.tmp srvhrs
+		mv ${srvfile}.tmp ${srvfile}
 	else
-		rm srvhrs.tmp	
+		rm ${srvfile}.tmp
 	fi
 }
 function edithrs {
-	cat -n srvhrs
+	cat -n ${srvfile}
 	echo "Edit which line?"
 	printf ":"
 	read line
-	awk "NR == $line" srvhrs > srvhrs.tmp
-	xdg-open srvhrs.tmp
-	sed -i "${line}c\\$(cat srvhrs.tmp)" srvhrs 
-	rm srvhrs.tmp
+	awk "NR == $line" ${srvfile} > ${srvfile}.tmp
+	xdg-open ${srvfile}.tmp
+	sed -i "${line}c\\$(cat ${srvfile}.tmp)" ${srvfile}
+	rm ${srvfile}.tmp
 	echo "Finished editing."
 }
 function lshrs {
 	echo "Current service hours"
-	cat srvhrs
+	cat ${srvfile}
 }
 function total {
 	tot=$((0))
@@ -45,10 +45,16 @@ function total {
 	do
 		temptot=$(echo $lines | awk '{print $4}')
 		tot=$(($tot + $temptot))
-	done < srvhrs
+	done < ${srvfile}
 	echo "$tot"
 }
-[ ! -f srvhrs ] && touch srvhrs
+if [ "$#" -ne 0 ]; then
+	srvfile="$1"
+	[ ! -f ${srvfile} ] && touch ${srvfile}
+else
+	srvfile=srvhrs
+	[ ! -f ${srvfile} ] && touch ${srvfile}
+fi
 lshrs
 while true 
 do
