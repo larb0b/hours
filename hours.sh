@@ -58,6 +58,12 @@ total() {
 	done < "${srvfile}"
 	echo "$tot"
 }
+switchsf() {
+	srvfile="$(echo "$command" | awk '{print $2}')"
+	if [ ! -f "${srvfile}" ]; then
+		touch "${srvfile}"
+	fi
+}
 orghrs() {
 	sort -M "${srvfile}" -o "${srvfile}"
 }
@@ -82,6 +88,9 @@ do
 			;;
 		n)
 			lshrs
+			;;
+		s*)
+			switchsf
 			;;
 		*d)
 			rmhrs
