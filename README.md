@@ -6,11 +6,11 @@ Simple script to log hours (service hours, work hours, etc.)
 
 * `a` - add an entry
 * `Nd` - remove an entry (N being entry's line number)
-* `Ne` - edit an entry
-	* you can add an entry with your $EDITOR/xdg-open editor by using `Ne` on the next empty line
+* `Nc` - edit an entry
+	* you can add an entry with your $EDITOR/xdg-open editor by using `Nc` on the next empty line
 * `p` - list entries
 * `n` - list entries with line numbers
-* `s` - switch current file
+* `e` - switch current file
 * `o` - organize entries by month + day
 * `t` - output total amount of hours
 * `q` - exit

@@ -19,9 +19,9 @@ rmhrs() {
 	fi
 }
 edithrs() {
-	line="$(echo "${command%e}" | sed 's/[^0-9]*//g')"
+	line="$(echo "${command%c}" | sed 's/[^0-9]*//g')"
 	if [ -z "$line" ]; then
-		echo "e syntax: Ne"
+		echo "c syntax: Nc"
 	else 
 		awk "NR == $line" "${srvfile}" > "${srvfile}".tmp
 		if [ -z "${EDITOR:-}" ]; then
@@ -60,7 +60,7 @@ total() {
 }
 switchsf() {
 	if [ -z "$(echo "$command" | awk '{print $2}')" ]; then
-		echo "s syntax: s filename"
+		echo "e syntax: e filename"
 	else
 		srvfile="$(echo "$command" | awk '{print $2}')"
 		if [ ! -f "${srvfile}" ]; then
@@ -93,13 +93,13 @@ do
 		n)
 			lshrs
 			;;
-		s*)
+		e*)
 			switchsf
 			;;
 		*d)
 			rmhrs
 			;;
-		*e)
+		*c)
 			edithrs
 			;;
 		t)
