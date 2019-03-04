@@ -37,7 +37,12 @@ edithrs() {
 		fi
 	fi
 	$EDITOR "${srvfile}".tmp
-	sed -i "${line}c\\$(cat "${srvfile}".tmp)" "${srvfile}"
+	{
+		sed "$line,\$d" "${srvfile}"
+		cat "${srvfile}".tmp
+		sed "1,${line}d" "${srvfile}"
+	} > "${srvfile}".stmp
+	mv "${srvfile}".stmp "${srvfile}"
 	rm "${srvfile}".tmp
 	printf "Finished editing.\n"
 }
