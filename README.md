@@ -9,8 +9,8 @@ Simple script to log hours (service hours, work hours, etc.)
 * `edit` - edit an entry
 * `p` - list entries
 * `n` - list entries with line numbers
-* `organize, org` - organize entries by month + day
-* `total, tot` - output total amount of hours
+* `org, o` - organize entries by month + day
+* `total, t` - output total amount of hours
 * `q` - exit
 
 ## Storage

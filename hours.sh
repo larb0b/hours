@@ -84,10 +84,10 @@ do
 		edit)
 			edithrs
 			;;
-		total|tot)
+		total|t)
 			total
 			;;
-		organize|org)
+		org|o)
 			orghrs
 			;;
 		q)
