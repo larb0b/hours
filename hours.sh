@@ -48,7 +48,7 @@ total() {
 	tot=$((0))
 	while read lines
 	do
-		temptot=$(printf "$lines" | awk '{print $4}')
+		temptot=$(printf "$lines" | sed -E 's/^.* - ([^ ]+) - .*/\1/') 
 		tot=$(($tot + $temptot))
 	done < "${srvfile}"
 	echo "$tot"
