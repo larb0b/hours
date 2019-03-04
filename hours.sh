@@ -11,29 +11,35 @@ addhrs() {
 }
 rmhrs() {
 	line="${command%d}"
-	sed "${line}d" "${srvfile}" > "${srvfile}".tmp
-	mv "${srvfile}".tmp "${srvfile}"
+	if [ -z "$line" ]; then
+		echo "d syntax: Nd"
+	else
+		sed "${line}d" "${srvfile}" > "${srvfile}".tmp
+		mv "${srvfile}".tmp "${srvfile}"
+	fi
 }
 edithrs() {
-	cat -n "${srvfile}"
-	printf "Edit which line?\n:"
-	read line
-	awk "NR == $line" "${srvfile}" > "${srvfile}".tmp
-	if [ -z "${EDITOR:-}" ]; then
-		if command -v xdg-open > /dev/null; then
-			EDITOR=xdg-open
-		else
-			EDITOR=vi
+	line="$(echo "$command" | sed 's/[^0-9]*//g')"
+	if [ -z "$line" ]; then
+		echo "e syntax: Ne"
+	else 
+		awk "NR == $line" "${srvfile}" > "${srvfile}".tmp
+		if [ -z "${EDITOR:-}" ]; then
+			if command -v xdg-open > /dev/null; then
+				EDITOR=xdg-open
+			else
+				EDITOR=vi
+			fi
 		fi
+		$EDITOR "${srvfile}".tmp
+		{
+			sed "$line,\$d" "${srvfile}"
+			cat "${srvfile}".tmp
+			sed "1,${line}d" "${srvfile}"
+		} > "${srvfile}".stmp
+		mv "${srvfile}".stmp "${srvfile}"
+		rm "${srvfile}".tmp
 	fi
-	$EDITOR "${srvfile}".tmp
-	{
-		sed "$line,\$d" "${srvfile}"
-		cat "${srvfile}".tmp
-		sed "1,${line}d" "${srvfile}"
-	} > "${srvfile}".stmp
-	mv "${srvfile}".stmp "${srvfile}"
-	rm "${srvfile}".tmp
 }
 lshrs() {
 	printf "Current hours:\n"
@@ -80,7 +86,7 @@ do
 		*d)
 			rmhrs
 			;;
-		edit|e)
+		*e)
 			edithrs
 			;;
 		total|t)
