@@ -10,7 +10,7 @@ addhrs() {
 	echo "$date | $hours | $description" >> "${srvfile}"
 }
 rmhrs() {
-	line="${command%d}"
+	line="$(echo "${command%d}" | sed 's/[^0-9]*//g')"
 	if [ -z "$line" ]; then
 		echo "d syntax: Nd"
 	else
@@ -19,7 +19,7 @@ rmhrs() {
 	fi
 }
 edithrs() {
-	line="$(echo "$command" | sed 's/[^0-9]*//g')"
+	line="$(echo "${command%e}" | sed 's/[^0-9]*//g')"
 	if [ -z "$line" ]; then
 		echo "e syntax: Ne"
 	else 
