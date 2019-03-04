@@ -5,12 +5,13 @@ Simple script to log hours (service hours, work hours, etc.)
 ## Commands
 
 * `add, a` - add an entry
-* `rm` - remove an entry
+* `Nd` - remove an entry (N being entry's line number)
 * `edit` - edit an entry
-* `ls` - list entries
+* `p` - list entries
+* `n` - list entries with line numbers
 * `organize, org` - organize entries by month + day
 * `total, tot` - output total amount of hours
-* `exit, quit, q` - exit
+* `q` - exit
 
 ## Storage
 

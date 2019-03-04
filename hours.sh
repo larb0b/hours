@@ -10,19 +10,9 @@ addhrs() {
 	echo "$date - $hours - $description" >> "${srvfile}"
 }
 rmhrs() {
-	cat -n "${srvfile}"
-	printf "Remove which line?\n:"
-	read line
+	line="${command%d}"
 	sed "${line}d" "${srvfile}" > "${srvfile}".tmp
-	printf "The new service hour log will be as follows:\n"
-	cat -n "${srvfile}".tmp
-	printf "Does this look okay? (y/n)\n"
-	read resp
-	if [ "$resp" = "y" ]; then
-		mv "${srvfile}".tmp "${srvfile}"
-	else
-		rm "${srvfile}".tmp
-	fi
+	mv "${srvfile}".tmp "${srvfile}"
 }
 edithrs() {
 	cat -n "${srvfile}"
@@ -48,7 +38,11 @@ edithrs() {
 }
 lshrs() {
 	printf "Current hours:\n"
-	cat "${srvfile}"
+	if [ "${command:-}" = "n" ]; then
+		cat -n "${srvfile}"
+	else
+		cat "${srvfile}"
+	fi
 }
 total() {
 	tot=$((0))
@@ -78,10 +72,13 @@ do
 		add|a)
 			addhrs
 			;;
-		ls)
+		p)
 			lshrs
 			;;
-		rm)
+		n)
+			lshrs
+			;;
+		*d)
 			rmhrs
 			;;
 		edit)
@@ -93,7 +90,7 @@ do
 		organize|org)
 			orghrs
 			;;
-		exit|quit|q)
+		q)
 			exit 0
 			;;
 		*)
