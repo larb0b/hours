@@ -74,7 +74,7 @@ do
 	printf ":"
 	read command
 	case "$command" in
-		add|a)
+		a)
 			addhrs
 			;;
 		p)
@@ -89,10 +89,10 @@ do
 		*e)
 			edithrs
 			;;
-		total|t)
+		t)
 			total
 			;;
-		org|o)
+		o)
 			orghrs
 			;;
 		q)
