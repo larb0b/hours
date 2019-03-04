@@ -2,10 +2,6 @@
 
 Simple script to log hours (service hours, work hours, etc.)
 
-## Info
-
-By default, it creates "srvhrs" to store the hour database. You can use a different file by passing it as an argument, e.g. `./hours.sh ~/hoursfile`.
-
 ## Commands
 
 * `add, a` - add an entry
@@ -15,3 +11,11 @@ By default, it creates "srvhrs" to store the hour database. You can use a differ
 * `organize, org` - organize entries by month + day
 * `total, tot` - output total amount of hours
 * `exit, quit, q` - exit
+
+## Storage
+
+By default, the script creates a file named "srvhrs" to store logged hours. You can use a different file by passing it as an argument, e.g. `./hours.sh ~/hoursfile`.
+
+## Years
+
+The script does not support years. Adding years *will* cause the script to not function properly. A solution to this is having separate logs for different years. These can be viewed together in order with `tail` if desired.
