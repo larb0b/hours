@@ -31,7 +31,14 @@ edithrs() {
 	printf ":"
 	read line
 	awk "NR == $line" "${srvfile}" > "${srvfile}".tmp
-	${EDITOR:=xdg-open} "${srvfile}".tmp
+	if [ -z "${EDITOR:-}" ]; then
+		if command -v xdg-open > /dev/null; then
+			EDITOR=xdg-open
+		else
+			EDITOR=vi
+		fi
+	fi
+	$EDITOR "${srvfile}".tmp
 	sed -i "${line}c\\$(cat "${srvfile}".tmp)" "${srvfile}"
 	rm "${srvfile}".tmp
 	echo "Finished editing."
