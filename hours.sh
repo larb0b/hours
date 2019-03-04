@@ -59,9 +59,13 @@ total() {
 	echo "$tot"
 }
 switchsf() {
-	srvfile="$(echo "$command" | awk '{print $2}')"
-	if [ ! -f "${srvfile}" ]; then
-		touch "${srvfile}"
+	if [ -z "$(echo "$command" | awk '{print $2}')" ]; then
+		echo "s syntax: s filename"
+	else
+		srvfile="$(echo "$command" | awk '{print $2}')"
+		if [ ! -f "${srvfile}" ]; then
+			touch "${srvfile}"
+		fi
 	fi
 }
 orghrs() {
