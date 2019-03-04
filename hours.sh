@@ -60,7 +60,7 @@ if [ "$#" -ne 0 ]; then
 	srvfile="$1"
 	[ ! -f "${srvfile}" ] && touch "${srvfile}"
 else
-	srvfile=srvhrs
+	srvfile=hrs
 	[ ! -f "${srvfile}" ] && touch "${srvfile}"
 fi
 lshrs
