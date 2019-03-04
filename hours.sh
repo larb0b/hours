@@ -54,7 +54,7 @@ total() {
 	while read lines
 	do
 		temptot=$(printf "$lines" | cut -d'|' -f2)
-		tot=$(($tot + $temptot))
+		tot=$(echo "$tot + $temptot" | bc)
 	done < "${srvfile}"
 	echo "$tot"
 }
