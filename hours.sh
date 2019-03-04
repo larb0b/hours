@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 set -eu
-function addhrs {
+addhrs() {
 	echo "Date?"
 	read date
 	echo "Amount of hours?"
@@ -9,7 +9,7 @@ function addhrs {
 	read description
 	echo "$date - $hours - $description" >> "${srvfile}"
 }
-function rmhrs {
+rmhrs() {
 	cat -n "${srvfile}"
 	echo "Remove which line?"
 	printf ":"
@@ -19,13 +19,13 @@ function rmhrs {
 	cat -n "${srvfile}".tmp
 	echo "Does this look okay? (y/n)"
 	read resp
-	if [ "$resp" == "y" ]; then
+	if [ "$resp" = "y" ]; then
 		mv "${srvfile}".tmp "${srvfile}"
 	else
 		rm "${srvfile}".tmp
 	fi
 }
-function edithrs {
+edithrs() {
 	cat -n "${srvfile}"
 	echo "Edit which line?"
 	printf ":"
@@ -36,11 +36,11 @@ function edithrs {
 	rm "${srvfile}".tmp
 	echo "Finished editing."
 }
-function lshrs {
+lshrs() {
 	echo "Current service hours"
 	cat "${srvfile}"
 }
-function total {
+total() {
 	tot=$((0))
 	while read lines
 	do
@@ -49,9 +49,8 @@ function total {
 	done < "${srvfile}"
 	echo "$tot"
 }
-function orghrs {
+orghrs() {
 	sort -M "${srvfile}" -o "${srvfile}"
-	lshrs
 }
 if [ "$#" -ne 0 ]; then
 	srvfile="$1"
@@ -81,7 +80,7 @@ do
 		total|tot)
 			total
 			;;
-		org)
+		organize|org)
 			orghrs
 			;;
 		exit|quit|q)
