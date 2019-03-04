@@ -22,4 +22,4 @@ The script does not support years. Adding years *will* cause the script to not f
 
 ## Portability
 
-This script is aimed to be very portable. The least portable function of the script is `edithrs` as some sed implementations will not understand line 42.
+This script is aimed to be very portable. The least portable function of the script is `edithrs` as some sed implementations will not understand the last sed line in the `edithrs` function.

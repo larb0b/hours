@@ -1,23 +1,22 @@
 #!/bin/sh
 set -eu
 addhrs() {
-	echo "Date?"
+	printf "Date?\n"
 	read date
-	echo "Amount of hours?"
+	printf "Amount of hours?\n"
 	read hours
-	echo "Description?"
+	printf "Description?\n"
 	read description
 	echo "$date - $hours - $description" >> "${srvfile}"
 }
 rmhrs() {
 	cat -n "${srvfile}"
-	echo "Remove which line?"
-	printf ":"
+	printf "Remove which line?\n:"
 	read line
 	sed "${line}d" "${srvfile}" > "${srvfile}".tmp
-	echo "The new service hour log will be as follows:"
+	printf "The new service hour log will be as follows:\n"
 	cat -n "${srvfile}".tmp
-	echo "Does this look okay? (y/n)"
+	printf "Does this look okay? (y/n)\n"
 	read resp
 	if [ "$resp" = "y" ]; then
 		mv "${srvfile}".tmp "${srvfile}"
@@ -27,8 +26,7 @@ rmhrs() {
 }
 edithrs() {
 	cat -n "${srvfile}"
-	echo "Edit which line?"
-	printf ":"
+	printf "Edit which line?\n:"
 	read line
 	awk "NR == $line" "${srvfile}" > "${srvfile}".tmp
 	if [ -z "${EDITOR:-}" ]; then
@@ -41,17 +39,17 @@ edithrs() {
 	$EDITOR "${srvfile}".tmp
 	sed -i "${line}c\\$(cat "${srvfile}".tmp)" "${srvfile}"
 	rm "${srvfile}".tmp
-	echo "Finished editing."
+	printf "Finished editing.\n"
 }
 lshrs() {
-	echo "Current service hours"
+	printf "Current hours:\n"
 	cat "${srvfile}"
 }
 total() {
 	tot=$((0))
 	while read lines
 	do
-		temptot=$(echo $lines | awk '{print $4}')
+		temptot=$(printf "$lines" | awk '{print $4}')
 		tot=$(($tot + $temptot))
 	done < "${srvfile}"
 	echo "$tot"
@@ -94,7 +92,7 @@ do
 			exit 0
 			;;
 		*)
-			echo "Invalid command"
+			printf "Invalid command\n"
 			;;
 	esac
 done
