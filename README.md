@@ -8,8 +8,10 @@ By default, it creates "srvhrs" to store the hour database. You can use a differ
 
 ## Commands
 
-* add - add an entry
-* rm - remove an entry
-* edit - edit an entry
-* ls - list entries
-* total - output total amount of hours
+* `add, a` - add an entry
+* `rm` - remove an entry
+* `edit` - edit an entry
+* `ls` - list entries
+* `organize, org` - organize entries by month + day
+* `total, tot` - output total amount of hours
+* `exit, quit, q` - exit

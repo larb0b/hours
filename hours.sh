@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 function addhrs {
 	echo "Date?"
 	read date
@@ -48,6 +49,10 @@ function total {
 	done < "${srvfile}"
 	echo "$tot"
 }
+function orghrs {
+	sort -M "${srvfile}" -o "${srvfile}"
+	lshrs
+}
 if [ "$#" -ne 0 ]; then
 	srvfile="$1"
 	[ ! -f "${srvfile}" ] && touch "${srvfile}"
@@ -61,7 +66,7 @@ do
 	printf ":"
 	read command
 	case "$command" in
-		add)
+		add|a)
 			addhrs
 			;;
 		ls)
@@ -73,10 +78,13 @@ do
 		edit)
 			edithrs
 			;;
-		total)
+		total|tot)
 			total
 			;;
-		exit)
+		org)
+			orghrs
+			;;
+		exit|quit|q)
 			exit 0
 			;;
 		*)
