@@ -34,7 +34,6 @@ edithrs() {
 	} > "${srvfile}".stmp
 	mv "${srvfile}".stmp "${srvfile}"
 	rm "${srvfile}".tmp
-	printf "Finished editing.\n"
 }
 lshrs() {
 	printf "Current hours:\n"
@@ -81,7 +80,7 @@ do
 		*d)
 			rmhrs
 			;;
-		edit)
+		edit|e)
 			edithrs
 			;;
 		total|t)
